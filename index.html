@@ -32,6 +32,11 @@
       <img src="logo.png" alt="Logo" class="logo" />
 
       <ul class="workouts">
+        <div class="workouts-options">
+          <button id="sort-btn">Sort by distance</button>
+          <button id="delete-all">Delete All</button>
+        </div>
+
         <form class="form hidden" id="form">
           <div class="form__row">
             <label class="form__label">Type</label>
@@ -104,6 +109,14 @@
           <button class="form__btn">OK</button>
         </form>
 
+        <div id="error" class="hidden"></div>
+        <div class="confirm-box hidden">
+          <p id="confirm-box__message"></p>
+          <div class="confirm-box__buttons">
+            <button id="confirm-box__yes" class="confirm-box__button">Yes</button>
+            <button id="confirm-box__no" class="confirm-box__button">No</button>
+          </div>
+        </div>
         <!-- <li class="workout workout--running" data-id="1234567890">
           <h2 class="workout__title">Running on April 14</h2>
           <div class="workout__details">

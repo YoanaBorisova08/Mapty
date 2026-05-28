@@ -55,6 +55,19 @@ a:visited {
   margin-bottom: 4rem;
 }
 
+.workouts-options{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+#sort-btn, #delete-all{
+  background-color: var(--color-dark--1);
+  color: var(--color-light--2);
+  border: none;
+  padding: 1rem;
+}
+
 .workouts {
   list-style: none;
   height: 77vh;
@@ -205,24 +218,6 @@ a:visited {
   display: none;
 }
 
-.copyright {
-  margin-top: auto;
-  font-size: 1.3rem;
-  text-align: center;
-  color: var(--color-light--1);
-}
-
-.twitter-link:link,
-.twitter-link:visited {
-  color: var(--color-light--1);
-  transition: all 0.2s;
-}
-
-.twitter-link:hover,
-.twitter-link:active {
-  color: var(--color-light--2);
-}
-
 /* MAP */
 #map {
   flex: 1;
@@ -253,13 +248,50 @@ a:visited {
   border-left: 5px solid var(--color-brand--1);
 }
 
-.error {
-  font-size: 2rem;
-  color: #f50000;
+#error {
+  color: #bd0000;
+  background-color: var(--color-light--2);
   font-weight: bold;
   text-align: center;
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  padding: 10px;
+  border-radius: 15px;
+  margin: 20px;
+}
+
+.confirm-box{
+  background-color: var(--color-light--2);
+  color: var(--color-dark--1);
+  display:flex;
+  flex-direction: column;
+  width: 80%;
+  padding: 10px 20px;
+  text-align: center;
+  margin: 1rem auto 3rem auto;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-radius: 15px;
+}
+
+.confirm-box__buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 1rem 0;
+}
+
+.confirm-box__button{
+  background-color: var(--color-dark--1);
+  color: var(--color-light--2);
+  width: 40px;
+}
+
+.error-message{
+  font-size: 1.5rem;
+  z-index: 1000;
+}
+
+.hidden{
+  display: none;
 }
