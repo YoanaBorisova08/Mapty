@@ -17,10 +17,12 @@ const inputEditElevation = document.querySelectorAll('.form__input--elevation')[
 const error = document.querySelector('#error');
 const sortButton = document.querySelector('#sort-btn');
 const deleteAllButton = document.querySelector('#delete-all');
+const showAllButton = document.querySelector('.show-all-btn');
 const confirmBox = document.querySelector('.confirm-box');
 const confirmBoxMessage = document.querySelector('#confirm-box__message');
 const confirmYes = document.querySelector('#confirm-box__yes');
 const confirmNo = document.querySelector('#confirm-box__no');
+
 
 class Workout {
   date = new Date();
@@ -93,6 +95,7 @@ class App {
     containerWorkouts.addEventListener('click', this._handleWorkoutClick.bind(this));
     sortButton.addEventListener('click', this._sortWorkouts.bind(this));
     deleteAllButton.addEventListener('click', this._deleteAllWorkouts.bind(this));
+    showAllButton.addEventListener('click', this._fitMapToWorkouts.bind(this));
 
     inputType.value = 'running';
     this._toggleElevationField();
@@ -129,6 +132,13 @@ class App {
 
     // Markers can only be added after map loads
     this.#workouts.forEach(w => this._renderWorkoutMarker(w));
+  }
+
+  _fitMapToWorkouts() {
+    if (this.#workouts.length === 0) return;
+
+    const bounds = L.latLngBounds(this.#workouts.map(w => w.coords));
+    this.#map.fitBounds(bounds, { padding: [50, 50] });
   }
 
 
@@ -359,7 +369,7 @@ class App {
       ? this.#workouts.slice().sort((a, b) => b.distance - a.distance)
       : this.#workouts;
 
-    document.querySelectorAll('.workout').forEach(w => w.remove());
+    document.querySelectorAll('li.workout').forEach(w => w.remove());
     list.forEach(w => this._renderWorkout(w));
   }
 
@@ -368,6 +378,7 @@ class App {
     this.#markers.delete(workout.id);
     this.#workouts = this.#workouts.filter(w => w.id !== workout.id);
     document.querySelector(`.workout[data-id="${workout.id}"]`)?.remove();
+    this.#sorted = false;
     this._setLocalStorage();
   }
 

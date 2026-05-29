@@ -61,6 +61,15 @@ a:visited {
   margin-bottom: 0.5rem;
 }
 
+.show-all-btn{
+  padding: 5px;
+  width: 12rem;
+  border-radius: 15px;
+  border: none;
+  background-color: var(--color-light--1);
+  color: var(--color-dark--1);
+}
+
 #sort-btn, #delete-all{
   background-color: var(--color-dark--1);
   color: var(--color-light--2);
