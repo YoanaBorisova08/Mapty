@@ -33,13 +33,6 @@ class Workout {
     this.distance = distance;
     this.duration = duration;
   }
-
-  _setDescription() {
-    // prettier-ignore
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${months[this.date.getMonth()]} ${this.date.getDate()}`;
-    return this.description;
-  }
 }
 
 class Running extends Workout {
@@ -49,7 +42,6 @@ class Running extends Workout {
     super(coords, distance, duration);
     this.cadence = cadence;
     this.calcPace();
-    this._setDescription();
   }
 
   calcPace() {
@@ -65,7 +57,6 @@ class Cycling extends Workout {
     super(coords, distance, duration);
     this.elevation = elevation;
     this.calcSpeed();
-    this._setDescription();
   }
 
   calcSpeed() {
@@ -162,7 +153,31 @@ class App {
       inputType.value === 'running' ? 'flex' : 'none';
   }
 
-  _newWorkout(e) {
+  async _getLocationName(lat, lng, type) {
+    try {
+      const res = await fetch(
+        `https://geocode.maps.co/reverse?lat=${lat}&lon=${lng}&api_key=${config.API_KEY}&accept-language=en`
+      );
+      const data = await res.json();
+
+      const city = data.address.city
+        || data.address.town
+        || data.address.village
+        || data.address.county
+        || 'Unknown location';
+
+      // prettier-ignore
+      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const date = new Date();
+
+      return `${type[0].toUpperCase()}${type.slice(1)} in ${city} on ${months[date.getMonth()]} ${date.getDate()}`;
+    } catch {
+      // fall back to default description if API fails
+      return `${type[0].toUpperCase()}${type.slice(1)} on ${new Date().toLocaleDateString()}`;
+    }
+  }
+
+  async _newWorkout(e) {
     e.preventDefault();
 
     const type = inputType.value;
@@ -185,6 +200,8 @@ class App {
         return this._createError('Inputs have to be positive numbers!');
       workout = new Cycling([lat, lng], distance, duration, elevation);
     }
+
+    workout.description = await this._getLocationName(lat, lng, workout.type);
 
     this.#workouts.push(workout);
     this._renderWorkoutMarker(workout);
