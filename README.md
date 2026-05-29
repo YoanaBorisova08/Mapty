@@ -4,6 +4,12 @@ A workout tracking app that lets you log running and cycling sessions directly o
 
 ---
 
+<p align="center">
+  <a href="https://mapty.yoanaborisova.com">
+    <img src="https://img.shields.io/badge/Live-mapty.yoanaborisova.com-3B6D11?style=for-the-badge&logo=google-chrome&logoColor=EAF3DE&labelColor=27500A"/>
+  </a>
+</p>
+
 ## Features
 
 - 📍 Click on the map to log a workout at that location
